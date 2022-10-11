@@ -1,0 +1,39 @@
+<p>employee works!</p>
+
+<button type="submit" (click)="test()">Test</button>
+
+
+<h1>Welcome to Employee Page</h1>
+
+<!-- {{hello()}}  -->
+
+<h2> EID : {{eid}}</h2>
+<h2> ENAME : {{ename}}</h2>
+<h2> SALARY : {{salary}}</h2>
+
+<!-- property binding from component to the template/html-->
+<form >
+
+EID: <input type="number" name="eid"  [value]="eid"> <br>
+ENAME: <input type="text" name="ename" [value]="ename"> <br>
+SALARY: <input type="number" name="salary"  [value]="salary"> <br>
+
+
+<button type="submit" (click)="hello()">Event Binding</button>
+
+</form>    
+
+<img [src]="url">
+
+<br>
+
+<!--  two way data binding from comp to template and also from template to component -->
+
+<form >
+
+    EID: <input type="number" name="eid"  [(ngModel)]="eid" > <br>
+    ENAME: <input type="text" name="ename" [(ngModel)] = "ename"  > <br>
+
+
+
+</form>
