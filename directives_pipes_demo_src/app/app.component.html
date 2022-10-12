@@ -1,0 +1,76 @@
+Welcome To Angular
+
+
+<div [ngStyle]="{color: mycolor, 'background-color': mybgcolor}">
+    Uses fixed white text on blue background
+</div>
+
+
+<h1 *ngIf="5 > 13">Hello Friends!</h1>
+
+<h2 *ngIf="flag">Thank You</h2>
+
+
+<form>
+
+    Enter Input : <input type="text" name="choice" [(ngModel)]="choice">
+
+ </form>   
+
+
+<div  [ngSwitch]="choice"  >
+
+    <div *ngSwitchCase="'A'">You Choose Option A</div>
+    <div *ngSwitchCase="'B'">You Choose Option B</div>
+    <div *ngSwitchCase="'C'">You Choose Option C</div>
+    <div *ngSwitchDefault>Enter Correct Input</div>
+
+
+
+</div>
+
+<hr>
+
+<form>
+
+    Enter Input : <input type="text" name="course" [(ngModel)]="course">
+
+ </form> 
+
+<div  [ngSwitch]="course"  >
+
+    <div *ngSwitchCase="'Java'"><img src="assets/java.jpg"></div>
+    <div *ngSwitchCase="'Python'"><img src="assets/python.png"></div>
+    <div *ngSwitchCase="'Mysql'"><img src="assets/mysql.jpg"></div>
+    <div *ngSwitchDefault>Enter Valid Course</div>
+
+
+
+</div>
+
+
+
+<ul>
+
+    <li *ngFor="let name of names">{{name}}</li>
+
+</ul>
+
+
+
+
+<form>
+
+    <button *ngFor="let name of names">{{name}}</button> 
+
+</form>
+
+
+<table  [ngClass]="{bordered:flag}">
+
+    <tr><th>NAMES</th></tr>
+    <tr *ngFor="let x of names"><td>{{ x }}</td></tr>
+
+</table>
+
+
