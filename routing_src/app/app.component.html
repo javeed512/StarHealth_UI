@@ -1,0 +1,63 @@
+Welcome To Home Component
+
+<!-- step2 -->
+<a routerLink="/dashboard">Dashboard</a>
+<a routerLink="/contactus">ContactUs</a>
+<a routerLink="/aboutus">AboutUs</a>
+<a routerLink="/login">Login</a>
+<a routerLink="/payment">Payment</a>
+
+
+<hr>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link"  href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contactus">Contacts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/aboutus">Aboutus</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/payment">Payment</a>
+          </li>
+        
+        <li class="nav-item">
+          <a class="nav-link disabled" routerLink="/login">Login</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+
+  <hr>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">StarHealth</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a routerLink="/login">Login</a></li>
+        <li><a routerLink="/payment">Payment</a></li>
+        <li><a routerLink="/contactus">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+
+<!--step 3 -->
+<router-outlet></router-outlet>
