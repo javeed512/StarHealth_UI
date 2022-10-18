@@ -1,0 +1,788 @@
+React Router
+===============
+Routing is a process in which a user is directed to different pages
+ based on their action or request. ReactJS Router is mainly used for 
+developing Single Page Web Applications.
+
+ React Router is used to define multiple routes in the application.
+
+ When a user types a specific URL into the browser, and if this URL 
+path matches any 'route' inside the router file, the user will be 
+redirected to that particular route.
+
+React Router Installation
+-----------------------------
+React contains three different packages for routing. These are:
+
+react-router: 
+---------------
+It provides the core routing components and functions for the
+ React Router applications.
+
+react-router-native: 
+---------------------
+It is used for mobile applications.
+
+react-router-dom: 
+-----------------
+It is used for web applications design.
+
+
+It is not possible to install react-router directly in your application. 
+To use react routing, first, you need to install react-router-dom 
+modules in your application.
+
+ The below command is used to install react-router-dom.
+
+D:/FirstReact/myapp>npm install react-router-dom    
+
+Components in React Router
+------------------------
+There are two types of router components:
+
+<BrowserRouter>: It is used for handling the dynamic URL.
+<HashRouter>: It is used for handling the static request.
+
+
+
+
+ex:1
+-----
+App.js
+-------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+        render() {
+                return (
+                        <div>
+                              <h1>Home</h1>     
+                        </div>
+                )
+        }
+}
+
+Contact.js
+-----------
+import React, { Component } from 'react'
+
+export default class Contact extends Component {
+    render() {
+        return <h1>Contact</h1>
+    }
+}
+
+About.js
+----------
+import React, { Component } from 'react'
+
+export default class About extends Component {
+    render() {
+        return <h1>About</h1>
+    }
+}
+
+index.js
+---------
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'  
+import App from './App';  
+import About from './About'  
+import Contact from './Contact'  
+  
+const routing = (  
+  <Router>  
+    <div>  
+      <h1>React Router Example</h1>  
+      <Route exact path="/" component={App} />  
+      <Route  path="/about" component={About} />  
+      <Route  path="/contact" component={Contact} />  
+    </div>  
+  </Router>  
+)  
+ReactDOM.render(routing, document.getElementById('root'));  
+
+o/p:
+-----
+To see the output we need to type below request url.
+
+http://localhost:3000          (home page will render)
+http://localhost:3000/about    (about page will render)
+http://localhost:3000/contact  (contacct page will render) 
+
+Adding Navigation using Link component
+------------------------------------------
+Link Component is used to create links which allow to navigate 
+on different URLs and render its content without reloading the webpage.
+
+
+index.js
+--------
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'  
+import App from './App';  
+import About from './About'  
+import Contact from './Contact'  
+  
+const routing = (  
+    <Router>  
+      <div>  
+        <h1>React Router Example</h1>  
+        <ul>  
+          <li>  
+            <Link to="/">Home</Link>  
+          </li>  
+          <li>  
+            <Link to="/about">About</Link>  
+          </li>  
+          <li>  
+            <Link to="/contact">Contact</Link>  
+          </li>  
+        </ul>  
+        <Route exact path="/" component={App} />  
+        <Route path="/about" component={About} />  
+        <Route path="/contact" component={Contact} />  
+      </div>  
+    </Router>  
+  )  
+  ReactDOM.render(routing, document.getElementById('root'));  
+
+Note:
+--------
+we need to add some styles to the Link. So that when we click on 
+any particular link, it can be easily identified which Link is active. 
+
+To do this react router provides a new trick NavLink instead of Link.
+
+ Now, in the index.js file, replace Link from Navlink and add 
+properties activeStyle. 
+
+The activeStyle properties mean when we click on the Link, it 
+should have a specific style so that we can differentiate which
+ one is currently active.
+
+index.js
+---------
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'  
+import App from './App';  
+import About from './About'  
+import Contact from './Contact'  
+
+const routing = (  
+    <Router>  
+      <div>  
+        <h1>React Router Example</h1>  
+        <ul>  
+          <li>  
+            <NavLink to="/" exact activeStyle={  
+               {color:'red'}  
+            }>Home</NavLink>  
+          </li>  
+          <li>  
+            <NavLink to="/about" exact activeStyle={  
+               {color:'green'}  
+            }>About</NavLink>  
+          </li>  
+          <li>  
+            <NavLink to="/contact" exact activeStyle={  
+               {color:'magenta'}  
+            }>Contact</NavLink>  
+          </li>  
+        </ul>  
+        <Route exact path="/" component={App} />  
+        <Route path="/about" component={About} />  
+        <Route path="/contact" component={Contact} />  
+      </div>  
+    </Router>  
+  )  
+  ReactDOM.render(routing, document.getElementById('root'));  
+
+
+
+React Project Development
+==========================================
+step1:
+-------
+Create a  a React project.
+ex:
+create-react-app myproject
+
+step2:
+-------
+Open the project in VSC.
+ex:
+D:/FirstReact/myproject>code .
+
+step3:
+------
+Run the project.
+ex:
+D:/FirstReact/myproject>npm start
+
+step4:
+-------
+Make the changes in index.js file.
+
+index.js
+------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+step5:
+--------
+delete all the data from index.css and App.css file.
+Make it empty because we are using bootstrap.
+
+step6:
+---------
+Make the below changes in App.js
+
+App.js
+-------
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Hello World</h1>
+    </div>
+  );
+}
+
+export default App;
+
+step7:
+-------
+Add Bootstrap in our project using npm or yarn.
+
+ex:
+D:/FristReact/reactcurd>yarn add bootstrap
+                        or 
+                        npm install bootstrap
+
+step8:
+--------
+import bootstrap in App.js file.
+
+App.js
+--------
+import logo from './logo.svg';
+import './App.css';
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+function App() {
+  return (
+    <div className="App">
+     <h1>Hello World</h1>
+    </div>
+  );
+}
+
+export default App;
+
+
+step9:
+------
+create Home.js,About.js and Contact.js file inside "src/components/pages" 
+folder in "src" folder.
+
+Home.js
+--------
+import React from 'react'
+const Home=()=>
+{
+    return (
+        <div className="container">
+            <div className="py-4">
+                <h1>Home Page</h1>
+            </div>            
+        </div>
+    )
+}
+export default Home;
+
+About.js
+---------
+import React from 'react'
+const About=()=>
+{
+    return (
+        <div className="container">
+            <div className="py-4">
+                <h1>About Page</h1>
+            </div>            
+        </div>
+    )
+}
+export default About;
+
+contact.js
+----------
+import React from 'react'
+const Contact=()=>
+{
+    return (
+        <div className="container">
+            <div className="py-4">
+                <h1>Contact Page</h1>
+            </div>            
+        </div>
+    )
+}
+export default Contact;
+
+step10:
+------
+call all the components in index.js file
+
+index.js
+---------
+import React from 'react'
+import './App.css';
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import Home from './components/pages/Home';
+import About from './components/pages/About';
+import Contact from './components/pages/Contact';
+function App() {
+  return (
+    <div className="App">
+      <h1>Hello World</h1>
+      <Home />
+      <About />
+      <Contact />
+    </div>
+  );
+}
+
+export default App;
+
+
+step11
+---------
+create a "Navbar.js" file inside "components/layout" folder.
+Copy and paste navbar logic from bootstrap site and make some changes.
+
+
+Navbar.js
+----------
+import React from 'react'
+const Navbar=()=>
+{
+    return (
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<div className="container">
+<a class="navbar-brand" href="#">GlobalEDX</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+            Home 
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+      <button class="btn btn-outline-warning my-2 my-sm-0 text-white" type="submit">Search</button>
+    </form>
+  </div>
+  </div>
+</nav>
+    )
+}
+
+export default Navbar;
+
+
+step12:
+---------
+Call Navbar component inside "App.js" file.
+
+App.js
+---------
+import React from 'react'
+import './App.css';
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import Home from './components/pages/Home';
+import About from './components/pages/About';
+import Contact from './components/pages/Contact';
+import Navbar from "./components/layout/Navbar";
+function App() {
+  return (
+    <div className="App">
+
+      <Navbar />
+      <Home />
+      <About />
+      <Contact />
+    </div>
+  );
+}
+
+export default App;
+
+
+step13:
+--------
+Install "react-router-dom" for Routing.
+ex:
+D:/FirstReact/reactcurd> yarn add react-router-dom
+
+
+step14:
+----------
+Add the BrowserRouter to App.js file.
+Using Switch we can match exact url's of a page.
+
+App.js
+-------
+import React from 'react'
+import './App.css';
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import Home from './components/pages/Home';
+import About from './components/pages/About';
+import Contact from './components/pages/Contact';
+import Navbar from "./components/layout/Navbar";
+import {BrowserRouter as Router, Route ,Switch } from "react-router-dom"
+ 
+function App() {
+  return (
+    <Router>
+    <div className="App">
+
+      <Navbar />
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/about" component={About}/>
+        <Route exact path="/contact" component={Contact}/>
+      </Switch>
+    
+      
+    </div>
+    </Router>
+  );
+}
+
+export default App;
+
+Check the result
+--------------------
+http://localhost:3000/
+http://localhost:3000/about
+http://localhost:3000/contact
+
+step15:
+-------
+Add exact path to Navbar.js file inside href attribute of anchor tag<a>.
+
+Navbar.js
+---------
+import React from 'react'
+const Navbar=()=>
+{
+    return (
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<div className="container">
+<a class="navbar-brand" href="#">GlobalEDX</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+            Home 
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact">Contact</a>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+      <button class="btn btn-outline-warning my-2 my-sm-0 text-white" type="submit">Search</button>
+    </form>
+  </div>
+  </div>
+</nav>
+    )
+}
+
+export default Navbar;
+
+step16:
+-------
+To Make our application as Single Page Application we can use <Link> Tag
+ inside Navbar.js file.
+
+Navbar.js
+---------
+import React from 'react'
+import {Link , NavLink} from "react-router-dom";
+const Navbar=()=>
+{
+    return (
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+         <div class="container">   
+  <a class="navbar-brand" href="#">GLOBALEDX</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item active">
+        <Link class="nav-link" to="/">Home </Link>
+      </li>
+
+      <li class="nav-item">
+        <Link class="nav-link" to="/about">About</Link>
+      </li>
+      
+      <li class="nav-item">
+        <Link class="nav-link" to="/contact">Contact</Link>
+      </li>
+   
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+  </div>
+</nav>
+    )
+}
+export default Navbar;
+
+Note:
+------
+In above output , Home is only a active page.
+
+
+step17:
+--------
+Make the changes in About.js file.
+
+About.js
+----------
+import React from 'react'
+
+const About= ()=>
+{
+    return (
+        <div className="container">
+            <div className="py-4">
+                <h1>About Page</h1>
+                <p className="lead">
+                    This is ReactJs class for Realtime Project development for showing CURD operations using
+                    Json server and Routing SPA.This is ReactJs class for Realtime Project development for showing CURD operations using
+                    Json server and Routing SPA.
+                </p>
+                <p className="lead">
+                    This is ReactJs class for Realtime Project development for showing CURD operations using
+                    Json server and Routing SPA.This is ReactJs class for Realtime Project development for showing CURD operations using
+                    Json server and Routing SPA.
+                </p>
+                <p className="lead">
+                    This is ReactJs class for Realtime Project development for showing CURD operations using
+                    Json server and Routing SPA.This is ReactJs class for Realtime Project development for showing CURD operations using
+                    Json server and Routing SPA.
+                </p>
+            </div>
+        </div>
+    )
+}
+export default About;
+
+step18:
+---------
+Make the changes in Contact.js file.
+
+Contact.js
+----------
+import React from 'react'
+
+const Contact= ()=>
+{
+    return (
+        <div className="container">
+            <div className="py-4">
+                <h1>Contact Page</h1>
+                <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1"/>
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+            </div>
+        </div>
+    )
+}
+export default Contact;
+
+step19:
+---------
+To active the page we need to perform following changes in Navbar.js file.
+we need to take the support <NavLink> to activate a page.
+
+Navbar.js
+-----------
+import React from 'react'
+import {Link , NavLink} from "react-router-dom";
+const Navbar=()=>
+{
+    return (
+        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+         <div className="container">   
+  <a className="navbar-brand" href="#">GLOBALEDX</a>
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+
+  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul className="navbar-nav mr-auto">
+      
+      <li class="nav-item">
+        <NavLink className="nav-link" exact to="/">Home </NavLink>
+      </li>
+
+      <li class="nav-item">
+        <NavLink className="nav-link" exact to="/about">About</NavLink>
+      </li>
+      
+      <li class="nav-item">
+        <NavLink className="nav-link" exact  to="/contact">Contact</NavLink>
+      </li>
+   
+    </ul>
+    <form className="form-inline my-2 my-lg-0">
+      <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+      <button className="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+  </div>
+</nav>
+    )
+}
+export default Navbar;
+
+step20:
+-----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

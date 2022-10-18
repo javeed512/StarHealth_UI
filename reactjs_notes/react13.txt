@@ -1,0 +1,748 @@
+2)Uncontrolled component
+------------------------
+The uncontrolled input is similar to the traditional HTML form inputs.
+The DOM itself handles the form data. Here, the HTML elements maintain
+their own state that will be updated when the input value changes.
+
+ To write an uncontrolled component, you need to use a ref to get form
+ values from the DOM. In other words, there is no need to write an event
+ handler for every state update. You can use a ref to access the input 
+field value of the form from the DOM.
+
+ex:
+
+App.js
+----------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+        constructor(props)
+        {
+                super(props);
+                //create ref
+                this.textInput=React.createRef();
+
+        }
+        render() {
+                return (
+                        <div>
+                                <form>
+                                        Name:<input type="text"/>
+                                        <br/><br/>
+                                        Password:<input type="text" ref={this.textInput}/>
+                                        <br/><br/>
+                                        Address:<input type="text"/>
+                                </form>                
+                        </div>
+                )
+        }
+}
+
+index.js
+--------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+Note:
+------
+In above example we are getting form without focus.To get the focus
+we need to write below code.
+
+ex:
+App.js
+-----
+import React, { Component } from 'react'
+
+export default class App extends Component {
+        constructor(props)
+        {
+                super(props);
+                //create ref
+                this.textInput=React.createRef();
+
+        }
+        componentDidMount=()=>
+        {
+                this.textInput.current.focus();
+        }
+        render() {
+                return (
+                        <div>
+                                <form>
+                                        Name:<input type="text"/>
+                                        <br/><br/>
+                                        Password:<input type="text" ref={this.textInput}/>
+                                        <br/><br/>
+                                        Address:<input type="text"/>
+                                </form>                
+                        </div>
+                )
+        }
+}
+
+index.js
+-------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+ex:2
+-------
+App.js
+-------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+        constructor(props)
+        {
+                super(props);
+                this.state={
+                        value:""
+                }
+                //create ref
+                this.textInput=React.createRef();
+
+        }
+       
+        render() {
+                return (
+                        <div>
+                                <h1>You Type: {this.state.value}</h1>             
+                        </div>
+                )
+        }
+}
+
+index.js
+----------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+Now we are creating form
+-----------------------------
+App.js
+--------
+
+import React, { Component } from 'react'
+
+export default class App extends Component {
+        constructor(props)
+        {
+                super(props);
+                this.state={
+                        value:""
+                }
+                //create ref
+                this.textInput=React.createRef();
+
+        }
+       
+        render() {
+                return (
+                        <div>
+                                <h1>You Type: {this.state.value}</h1> 
+                                <form>
+                                Name:<input type="text" ref={this.textInput}/>
+                                 <input type="submit" value="submit"/>       
+                                </form>            
+                        </div>
+                )
+        }
+}
+
+index.js
+--------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+Now we want to display input field data into a state.
+
+ex:
+App.js
+-------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+        constructor(props)
+        {
+                super(props);
+                this.state={
+                        value:""
+                }
+                //create ref
+                this.textInput=React.createRef();
+
+        }
+        handleSubmit=(e)=>
+        {
+                //it is mandatory
+                e.preventDefault();
+                //reading the data from text field
+                console.log(this.textInput.current.value);
+                //set the data of text field to state.
+                this.setState({value:this.textInput.current.value});
+        }
+       
+        render() {
+                return ( 
+                        <div>
+                                <h1>You Type: {this.state.value}</h1> 
+                                <form  onSubmit={this.handleSubmit}>
+                                Name:<input type="text" ref={this.textInput}/>
+                                 <input type="submit" value="submit"/>       
+                                </form>            
+                        </div>
+                )
+        }
+}
+
+index.js
+---------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+Callback Refs
+============
+React also supports another way to set refs called "callback refs" 
+which gives more fine-grain control over when refs are set and unset.
+
+Instead of passing a ref attribute created by createdRef(). we pass a 
+function.
+
+The function receives the REact component instance or HTML DOM element as 
+it arguments,which can be stored and accessed else where.
+
+ex:1
+------
+App.js
+-----
+import React, { Component } from 'react'
+
+export default class App extends Component {
+        constructor(props)
+        {
+                super(props);
+                
+                this.backRef=null;
+                //method with DOM element 
+                this.setBackRef=  (element)=>
+                {
+
+                             this.backRef=element;   
+                }
+
+        }
+       componentDidMount()
+       {
+                if(this.backRef)
+                {
+                        this.backRef.focus();
+                }
+       }
+       
+        render() {
+                return (
+                        <div>
+                                <form>
+                                        Name:<input type="text"/>
+                                        <br/><br/>
+                                        Password:<input type="text" ref={this.setBackRef}/>
+                                        <br/><br/>
+                                        Address:<input type="text"/>
+                                </form>             
+                        </div>
+                )
+        }
+}
+
+index.js
+--------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+
+Lifting State up in ReactJS
+===============================
+Lifting stateup is a technique to use Parent component state into
+child component state.
+
+Diagram: rjs15.1
+
+ex:
+----
+App.js
+--------
+import React, { Component } from 'react'
+import User from "./User";
+export default class App extends Component {
+        state={
+                name:"Alan"
+        }
+        render() {
+                return <User/>
+                       
+            
+        }
+}
+
+User.js
+-------
+ import React, { Component } from 'react'
+import App from "./App";
+export default class User extends Component {
+    render() {
+        return (
+            
+                <div>{this.state.name}</div>
+         
+        )
+    }
+}
+        
+index.js
+----------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+Note:
+----
+In above example, we will get compile time error.
+
+To use parent state in child component we can use props.
+
+ex:
+App.js
+-----
+import React, { Component } from 'react'
+import User from "./User";
+export default class App extends Component {
+        state={
+                name:"Alan"
+        }
+        render() {
+                return <User name={this.state.name}/>
+                       
+            
+        }
+}
+
+User.js
+-------
+import React, { Component } from 'react'
+import App from "./App";
+export default class User extends Component {
+    render() {
+        return (
+            
+                <div>{this.props.name}</div>
+         
+        )
+    }
+}
+
+index.js
+-----------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+ex:2
+-----
+App.js
+--------
+import React, { Component } from 'react'
+import Guest from './Guest';
+import User from "./User";
+export default class App extends Component {
+        state={
+                name:"Alan"
+        }
+        render() {
+                return <div>
+                        <User name={this.state.name}/>
+                         <Guest name={this.state.name}/>       
+                        </div>                       
+            
+        }
+}
+
+User.js
+--------
+import React, { Component } from 'react'
+import App from "./App";
+export default class User extends Component {
+    render() {
+        return (
+            
+                <div>{this.props.name}</div>
+         
+        )
+    }
+}
+
+Guest.js
+--------
+import React, { Component } from 'react'
+
+export default class Guest extends Component {
+    render() {
+        return (
+            
+                <div><h1>{this.props.name}</h1></div>
+         
+        )
+    }
+}
+
+
+index.js
+---------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+Context API
+==========
+The React Context API is a component structure, which allows us to share data across 
+all levels of the application. 
+
+The main aim of Context API is to solve the problem of prop drilling (also called "Threading"). 
+
+diagram: rjs15.2
+
+
+ex:1
+-----
+App.js
+---------
+import React, { Component } from 'react'
+import Guest from './Guest';
+import User from "./User";
+export default class App extends Component {
+        state={
+                name:"Alan"
+        }
+        render() {
+                return <div>
+                        <User name={this.state.name}/>
+                            
+                        </div>                       
+            
+        }
+}
+User.js
+------
+import React, { Component } from 'react'
+import App from "./App";
+import Guest from './Guest';
+export default class User extends Component {
+    render() {
+        return (
+            
+                <div>
+                    <Guest nm={this.props.name}/>
+                </div>
+         
+        )
+    }
+}
+
+Guest.js
+------
+import React, { Component } from 'react'
+
+export default class Guest extends Component {
+    render() {
+        return (
+            
+                <div><h1>{this.props.nm}</h1></div>
+         
+        )
+    }
+}
+
+
+
+index.js
+--------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+Above approach is good if we have limited components.But above 
+approach is not recommanded to use .
+
+To overcome this limitation we can use context api.
+
+The Context API in React are given below.
+
+React.createContext
+Context.provider
+Context.Consumer
+Class.contextType
+
+React.createContext()
+-----------------
+It creates a context object. When React renders a component which subscribes to 
+this context object, then it will read the current context value from the matching provider
+in the component tree.
+
+Syntax
+---------
+const MyContext = React.createContext();  
+
+ex:
+
+App.js
+-------
+import React, { Component } from 'react'
+import User from "./User";
+export const MyContext = React.createContext();
+export default class App extends Component {
+        state={
+                name:"Alan"
+        };
+        render() {
+                return <div>
+                       <MyContext.Provider value={this.state.name}>
+                               <User />
+                       </MyContext.Provider>
+
+
+                            
+                        </div>                       
+            
+        }
+}
+
+User.js
+---------
+import React, { Component } from 'react'
+import Guest from './Guest';
+export default class User extends Component {
+    render() {
+        return (
+            
+                <div>
+                    <h1>User component</h1>
+                    <Guest />
+                </div>
+         
+        )
+    }
+}
+
+Guest.js
+--------
+import React, { Component } from 'react'
+import {MyContext} from "./App";
+export default class Guest extends Component {
+    render() {
+        return (
+            
+                <div>
+                    <h3>Guest Component</h3>
+                    <MyContext.Consumer>
+                        {data => <h4>Name :{data}</h4> }
+                        </MyContext.Consumer>
+                </div>
+         
+        )
+    }
+}
+
+index.js
+---------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

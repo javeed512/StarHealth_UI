@@ -1,0 +1,210 @@
+Project Directory structure
+============================
+myapp
+|
+|----node_modules
+|
+|----public
+|	|
+|	|---favicon.ico
+|	|---index.html
+|	|---manifest.json
+|	|
+|	
+|-----src
+|	|	
+|	|---App.css
+|	|---App.js
+|	|---App.test.js
+|	|---index.css
+|	|---index.js
+|	|---logo.svg	
+|	|
+|---package.json
+|---README.md
+
+"myapp" is a Name of a project.
+
+"node_modules" contains all packages and dependencies installed.
+
+"favicon.ico" is a favourite icon for a web site.
+
+"index.html"  file holds HTML template of our application(Main template).
+
+"manifest.json" file provides metadata used when your web app is 
+installed on a  user's mobile device or desktop.
+
+"App.css" is a css file related to App.js but it's global.
+
+"App.js" is parent component of our React app.
+
+"App.test.js" is for test enviornment.
+
+"index.css" is a css file related to index.js but it's global.
+
+"index.js" is a  javascript entry point.
+
+"logo.svg" is a React logo.
+
+"package.json" contains all dependencies used in React app along with their versions..
+
+
+Note:
+-----
+	To build the project, "index.js" and "index.html" must exist
+	with exact file  name(mandatory).
+
+	Above two files are mandatory at the time of deployment 
+	not at the time of development.
+                load to          render to              output
+	App.js--------->index.js------------>index.html------->browser
+
+
+Web pack
+========
+Webpack is a static module bundler for modern Javascript applications.
+
+When webpack process our web application,It internally builds a 
+dependency graph which maps every module to our project needs and 
+generated one or more bundles.
+
+In general, it is used to bundle the multiple javascript files(modules)
+and build their dependencies.
+
+
+public folder
+===============
+If we put a file into a public folder .It will not be processed by 
+webpack.
+
+
+webpack does not read the "public" folder.It will reads the files 
+only from the "src" folder. Instead it will copied into a build
+folder untouched.
+
+1)
+whenever we type "npm build" command our web page will generated
+(1css file,1 javascript file and 1 html file)from multiple files
+of a project.So that we can easily deploy our project.
+
+2)To reference assets in the public folder,we need to use a 
+special variable called PUBLIC_URL.
+
+3)Only files inside the public folder will be accessible by 
+ %PUBLIC_URL%/prefix;
+ex:
+	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+
+Second React Application Development
+====================================
+step1:
+------
+	Make sure that React Project is build successfully.
+
+step2:
+-------
+	Take favourite icon and paste in public folder with
+	favicon.ico name only.
+
+step3:
+-----
+	To change the Title we need to go "index.html" file.	
+
+step4:
+------
+	delete App.css,App.js,"App.test.js",index.css,index.js and 
+	logo svg files.
+
+step5:
+-----
+	create "index.js" file inside "src" folder to create React 
+	Element.
+
+index.js
+----------
+//import React from react module
+import React from "react";
+
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//display the content using JSX
+//Babel converts JSX code to ReactCode
+let e1=<h1>Hello GlobalEdx</h1>
+
+//render the output to root tag/element of index.html
+ReactDOM.render(e1,document.getElementById("root"));
+
+step6:
+-----
+	check the output in browser window.
+	ex:
+	http://localhost:2525
+
+step7:
+-----
+	create a "App.js" file inside "src" folder to create 
+	React Component.
+
+App.js
+------
+//import React and Component class
+import React,{Component} from "react";
+
+//create a class by extending Component
+class App extends Component
+{
+    render()
+    {
+        //return react element
+        return <h2>Hello GlobalEdx</h2>
+    }
+}
+//export React component
+export default App;
+
+
+step8:
+-------
+import React component in index.js and render the component to 
+index.html file.
+
+ex:
+index.js
+---------
+//import React from react module
+import React from "react";
+
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import React component
+import App from "./App";
+
+//render the output to root tag/element of index.html
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+step9:
+--------
+	check the output in browser window.
+	ex:
+	http://localhost:3000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

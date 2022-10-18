@@ -1,0 +1,512 @@
+Typechecking with PropTypes in ReactJs
+======================================
+To run Typechecking on the props for a component we can assign the 
+special PropTypes property.
+
+ex:
+import PropTypes from "prop-types";
+
+Student.propTypes ={
+	name : PropTypes.string
+	age: PropTypes.number;
+}
+
+In general, Using PropTypes we can check the datatype of a component 
+attribute which goes to props object.
+
+When an invalid value is provided for a props ,a warning will be shown 
+in the javascript console.
+
+For performance reason,PropTypes is only checked in development mode.
+But we can use in deployment mode also.
+
+
+PropTypes export a range of validators that can be use to make sure the
+data we receive is valid.
+ex
+optionalArray : PropTypes.Array
+optionalBool  : PropTypes.bool
+optionalFunc : PropTypes.func
+optionalNumber: PropTypes.number
+optionalObject : PropTypes.object
+optionalString : PropTypes.string
+optionalSymbol : PropTypes.symbol
+
+
+example
+---------
+
+Project  structure
+--------------------
+myapp8
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html 
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js
+	|------Student.js
+|	
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application/Project.
+	ex:
+	D:/FirstReact>create-react-app  myapp8
+
+step2:
+------
+	Install propTypes in a "myapp8" project.
+	ex
+	E:/FirstReact/myapp8>npm install  prop-types
+	or
+	Add prop-types to package.json file.
+	ex:
+		"prop-types":"^15.7.2"
+
+step3:
+-------
+	update npm command.
+	ex:
+	E:/FirstReact/myapp8>npm update
+
+step4:
+------
+	Delete all the files from src folder.
+
+step5:
+------
+	create a "Student.js" file in "src " folder.
+	
+Student.js
+---------
+import React,{Component} from "react";
+import PropTypes from "prop-types";
+class Student extends Component{
+    render()
+    {
+        return (<div>
+                    <h1>Name : {this.props.name}</h1>
+                    <h1>RollNo :{this.props.roll}</h1> 
+                 </div>
+               );
+    }
+}
+Student.propTypes={
+    name:PropTypes.string,
+    roll:PropTypes.number
+}
+export default Student;
+
+
+
+step6:
+------
+
+	create "index.js" file to render the output to index.html file.
+
+index.js
+---------
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the student compoennt to index.html
+ReactDOM.render(<Student name={101} roll="101"/>,document.getElementById("root"));
+
+step7:
+-----
+	move to myapp8
+	ex:
+	D:/FirstReact> cd myapp8
+
+step8:
+-----
+	Run the application.
+	ex:
+	D:/FirstReact/myapp8>npm start
+
+step8:
+-------
+	Test the React Application.
+	ex:
+	http://localhost:3000
+
+	
+Required
+=============
+It shows warning message on browser console if we won't pass any prop
+which is required for React Component.
+
+Student.js
+----------
+import React,{Component} from "react";
+import PropTypes from "prop-types";
+class Student extends Component{
+    render()
+    {
+        return (<div>
+                    <h1>Name : {this.props.name}</h1>
+                    <h1>RollNo :{this.props.roll}</h1> 
+                 </div>
+               );
+    }
+}
+Student.propTypes={
+    name:PropTypes.string.isRequired,
+    roll:PropTypes.number.isRequired
+}
+export default Student;
+
+index.js
+---------
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the student compoennt to index.html
+ReactDOM.render(<Student  roll={101}/>,document.getElementById("root"));
+
+Note
+------
+	We are not passing "name" attribute to props then we will get 
+	warning message in a browser console.
+
+
+Default prop values
+=====================
+We can define default values for your props by assigning to the special
+defaultProps property.
+ex:
+Student.defaultProps ={
+	name: "GlobalEdx"	
+};
+
+Student.js
+-----------
+import React,{Component} from "react";
+import PropTypes from "prop-types";
+class Student extends Component{
+    render()
+    {
+        return (<div>
+                    <h1>Name : {this.props.name}</h1>
+                    <h1>RollNo :{this.props.roll}</h1> 
+                 </div>
+               );
+    }
+}
+Student.propTypes={
+    name:PropTypes.string.isRequired,
+    roll:PropTypes.number.isRequired
+}
+
+Student.defaultProps={
+    name:"GlobalEdx"
+}
+export default Student;
+
+
+index.js
+----------
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the student compoennt to index.html
+ReactDOM.render(<Student  roll={101}/>,document.getElementById("root"));
+
+Note
+-----
+	defaultProps work only when we won't pass any attribute to props.
+
+
+
+
+Children in JSX
+==================
+In JSX expressions that contain both an opening and closing tag, the
+content between those tags is passes a special prop called props.children.
+
+ex:
+	<Student>I am a Child</Student>
+
+	props.children   //I am a Child
+ex:
+
+Student.js
+----------
+import React,{Component} from "react";
+import PropTypes from "prop-types";
+
+const Student= props=>      
+            {
+            return <h1>Hello {props.children}</h1> 
+            }
+export default Student;
+
+index.js
+----------
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the student compoennt to index.html
+ReactDOM.render(<Student>I am a Child</Student>,document.getElementById("root"));
+
+
+State
+========
+State is similar to props but it is private and fully controlled by the
+component.
+
+we can create state only in class component but not in functional 
+component.
+
+It is possible to update the state  or modify the state, where as 
+props only for read only.
+
+
+There are two ways to initialize state in React component.
+
+1)Directly inside class
+
+2)Inside the constructor
+
+1)Directly inside class
+------------------------
+class Student extends Component
+{
+	//state 
+	state={
+		name: "alan",
+		prop1: this.props.prop1
+	}
+	render()
+	{
+	}
+}
+
+Note
+-----
+	The state property is a refered a state.
+	This is a class instance property.
+
+
+example
+---------
+
+Project  structure
+--------------------
+myapp8
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html 
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js
+	|------Student.js
+|	
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application/Project.
+	ex:
+	D:/FirstReact>create-react-app  myapp9
+
+
+step2:
+------
+	Delete all the files from src folder.
+
+step3:
+------
+	Install "ES7 React" plugin/Extension from Visual Studio Code for shortcuts.
+	ex
+	imrc + tab
+	imr + tab
+	imrd + tab
+
+step4:
+------
+	create a "Student.js" file in "src " folder.
+	
+Student.js
+---------
+import React, { Component } from 'react'
+class Student extends Component
+{
+    state={
+        name:"Alan"
+    }
+    render()
+    {
+    return <h1>Hello {this.state.name}</h1>
+    }
+}
+export default Student;
+
+step5:
+------
+
+	create "index.js" file to render the output to index.html file.
+
+index.js
+---------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student/>,document.getElementById("root"));
+step6:
+-----
+	move to myapp9
+	ex:
+	D:/FirstReact> cd myapp9
+
+step7:
+-----
+	Run the application.
+	ex:
+	D:/FirstReact/myapp9>npm start
+
+step8:
+-------
+	Test the React Application.
+	ex:
+	http://localhost:3000
+
+
+ex:2
+--------
+Student.js
+---------
+import React, { Component } from 'react'
+class Student extends Component
+{
+    state={
+        name:"Alan",
+        roll: 101
+    }
+    render()
+    {
+    return (
+                <div>
+                    <h1>Name: {this.state.name}</h1>
+                    <h1>RollNo: {this.state.roll}</h1>
+                </div>
+    );
+    }
+}
+export default Student;
+
+index.js
+----------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student/>,document.getElementById("root"));
+
+ex:3
+-------
+Student.js
+---------
+import React, { Component } from 'react'
+class Student extends Component
+{
+    state={
+        name:"Alan",
+        roll: this.props.roll
+    }
+    render()
+    {
+    return (
+                <div>
+                    <h1>Name: {this.state.name}</h1>
+                    <h1>RollNo: {this.state.roll}</h1>
+                </div>
+    );
+    }
+}
+export default Student;
+
+
+index.js
+---------
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student roll={111}/>,document.getElementById("root"));
+
+Note:
+----
+	Here props property we are storing into state.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

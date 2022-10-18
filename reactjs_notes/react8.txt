@@ -1,0 +1,813 @@
+2)Inside the Constructor
+==========================
+class Student extends Component
+{
+	//constructor
+	constructor(props)
+	{
+		//it is required to call the parent class constructor
+		super(props);
+		
+		//states
+		this.state={
+			name: "Alan",
+			prop1: this.props.prop1
+		}	
+	}
+
+
+		
+
+this.state={
+			name: "Alan",
+			prop1: this.props.prop1
+		}	
+	render()
+	{
+		return element
+	}
+
+}
+
+When the component class is created ,the constructor is the first
+called so it is right place to add state.
+
+The class instance has already been created in memory.So we can use 
+"this" to set properties on it.
+
+When we write a constructor ,make sure to call parent class constructor
+by using super(props) keyword.
+
+When we call super with props,React will make props avaiable accross/access
+the component through this.props.
+
+example
+---------
+
+Project  structure
+--------------------
+myapp10
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html 
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js
+	|------Student.js
+|	
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application/Project.
+	ex:
+	D:/FirstReact>create-react-app  myapp10
+
+step2:
+------
+	Delete all the files from src folder.
+
+step3:
+------
+	create a "Student.js" file in "src " folder.
+	
+Student.js
+---------
+import React, { Component } from 'react';
+class Student extends Component{
+    //constructor
+    constructor(props)
+    {
+        //call super class constructor
+        super(props);
+
+        //declare the states
+        this.state={
+            name:"Alan",
+            roll:this.props.roll
+        } 
+    }
+    render()
+    {
+        return (<div>
+                    <h1>Name :{this.state.name}</h1>
+                    <h1>RollNo:{this.state.roll}</h1>
+                </div>)
+    }
+}
+export default Student;
+
+step4:
+------
+
+	create "index.js" file to render the output to index.html file.
+
+index.js
+---------
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the student compoennt to index.html
+ReactDOM.render(<Student roll="101"/>,document.getElementById("root"));
+
+step5:
+-----
+	move to myapp10
+	ex:
+	D:/FirstReact> cd myapp10
+
+step6:
+-----
+	Run the application.
+	ex:
+	D:/FirstReact/myapp10>npm start
+
+step7:
+-------
+	Test the React Application.
+	ex:
+	http://localhost:3000
+
+Event Handling in ReactJS
+==========================
+
+What is event
+-------------
+The actions to which a JavaScript can respond are called events.
+ex:
+	clicking an element
+	submitting a form
+	scrolling a page
+	hovering an element
+
+Handling events with React Elements is very similar to handling events
+on DOM elements.There are syntactic differences.
+
+in html
+--------
+<button onclick="validate()">clickme</button>
+
+in React
+--------
+<button onClick={validate}>clickme</button>  // function component
+<button onClick={this.validate}>clickme</button> //class component
+
+ex:1
+-----
+
+Student.js
+------------
+import React, { Component } from 'react';
+//class component
+class Student extends Component{
+
+    //function declaration
+    // to declare a function , function keyword is optional for class component
+    handleClick()
+    {
+        //this means it shows the output
+        console.log("Button is Clicked",this);
+    }
+
+    render()
+    {
+        return (<div>
+                    <h1>Hello</h1>
+                 <button onClick={this.handleClick}>clickMe</button>
+                </div>)
+    }
+}
+export default Student;
+
+
+index.js
+--------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student />,document.getElementById("root"));
+
+o/p: button is clicked undefined.
+     (check the output in browser console by pressing F12 function key.
+
+Note:
+-----
+	IF we declare "this" keyword inside the class then it points 
+	to current object or class.
+
+	If we declare "this" keyword inside the function then it points
+	to window object of a browser.
+
+ex:2
+-------
+Student.js
+----------
+import React, { Component } from 'react';
+//class component
+class Student extends Component{
+    
+
+    //convert regular function to Arrow function
+    //React internally bind object to this keyword
+    handleClick =  ()=>
+    {
+        //this means it shows the output
+        console.log("Button is Clicked",this);
+    }
+
+    render()
+    {
+        return (<div>
+                    <h1>Hello</h1>
+                 <button onClick={this.handleClick}>clickMe</button>
+                </div>)
+    }
+}
+export default Student;
+
+index.js
+----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student />,document.getElementById("root"));
+
+ex:3
+--------
+We need to bind this keyword with regular function using constructor.
+ex:
+Student.js
+-----------
+import React, { Component } from 'react';
+//class component
+class Student extends Component{
+    //constructor
+    constructor(props)
+    {
+        super(props);
+        this.handleClick=this.handleClick.bind(this);
+    }
+
+    //regular function
+    handleClick ()
+    {
+        //this means it shows the output
+        console.log("Button is Clicked",this);
+    }
+
+    render()
+    {
+        return (<div>
+                    <h1>Hello</h1>
+                 <button onClick={this.handleClick}>clickMe</button>
+                </div>)
+    }
+}
+export default Student;
+
+
+
+index.js
+-----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student />,document.getElementById("root"));
+
+Note:
+---------
+Better to work with arrow function because "this" will inherited 
+automatically so we don't need to bind .
+
+A "this" keyword  is useful when we want to read/modify state in 
+an event/function
+
+ex:4
+-----
+Student.js
+------------
+import React, { Component } from 'react';
+//class component
+class Student extends Component{
+    //constructor
+    constructor(props)
+    {
+        super(props);
+        this.state={
+            name:"Jose",
+            roll:this.props.roll
+        }
+       
+    }
+
+    //regular function
+    handleClick =()=>
+    {
+        //this means it shows the output
+        console.log("Button is Clicked",this);
+    }
+
+    render()
+    {
+        return (<div>
+                    <h1>Name: {this.state.name}</h1>
+                    <h1>RollNo: {this.state.roll}</h1>
+                 <button onClick={this.handleClick}>clickMe</button>
+                </div>)
+    }
+}
+export default Student;
+
+
+index.js
+---------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student roll="111"/>,document.getElementById("root"));
+
+function component
+====================
+Student.js
+--------
+import React from 'react';
+//function component
+function Student()
+{
+    //function
+    function handleClick()
+    {
+            console.log("button Clicked");
+    }
+    return (
+                <div>
+                    <h1>Hello GlobalEdx</h1>
+                    <button onClick={handleClick}>clickme</button>
+                </div>
+            )
+}
+export default Student;
+
+
+index.js
+-----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student/>,document.getElementById("root"));
+
+
+ex:2
+-------
+Student.js
+------------
+import React from 'react';
+//function component
+function Student(props)
+{
+    //function
+    function handleClick()
+    {
+            console.log("button Clicked");
+    }
+    return (
+                <div>
+                    <h1>Hello {props.name}</h1>
+                    <button onClick={handleClick}>clickme</button>
+                </div>
+            )
+}
+export default Student;
+
+
+index.js
+---------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student name="Joe Biden"/>,document.getElementById("root"));
+
+ex:3
+-----
+Student.js
+-----------
+import React from 'react';
+//function component
+function Student(props)
+{
+    //arrow function
+    const handleClick=()=>
+    {
+            console.log("button Clicked");
+    }
+    return (
+                <div>
+                    <h1>Hello {props.name}</h1>
+                    <button onClick={handleClick}>clickme</button>
+                </div>
+            )
+}
+export default Student;
+
+
+index.js
+----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student name="Joe Biden"/>,document.getElementById("root"));
+
+
+
+
+We can't return false to prevent default behaviour in React.We must 
+call preventDefault explicitly.
+ 
+in html
+-----------
+<a href="http://www.google.com" 
+		onclick="console.log('clicked'); return false">click</a>
+
+If we write return false then anchor tag will not navigate any where.
+
+
+in React
+--------
+function handleClick(e)
+{
+	e.preventDefault();
+	console.log('clicked');
+}
+<a href="http://www.google.com" onClick={handleClick}>clickme</a>
+
+ex:1
+----
+Student.js
+-----------
+import React from 'react';
+//function component
+function Student(props)
+{
+    //arrow function
+    const handleClick= ()=>
+    {
+        console.log("button Clicked");
+    }    
+    return (
+            <div>
+                <h1>Hello {props.name}</h1>
+            <a href="http://www.google.com" onClick={handleClick}>clickme</a>
+
+            </div>
+            )
+}
+export default Student;
+
+
+index.js
+--------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student name="Joe Biden"/>,document.getElementById("root"));
+
+note:
+-----
+	if we click to hyperlink then it will redirect to Google page.
+	To prevent we need touse preventDefault().
+ex:2
+-----
+Student.js
+---------
+import React from 'react';
+//function component
+function Student(props)
+{
+    //arrow function
+    const handleClick= (e)=>
+    {
+        e.preventDefault();
+        console.log("button Clicked");
+    }    
+    return (
+            <div>
+                <h1>Hello {props.name}</h1>
+            <a href="http://www.google.com" onClick={handleClick}>clickme</a>
+
+            </div>
+            )
+}
+export default Student;
+
+index.js
+-------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student name="Joe Biden"/>,document.getElementById("root"));
+
+
+Note:
+-----
+	Here button will be clicked but anchor tag never redirect to
+	google page.
+
+Update State
+==============
+Using setState() method is used to update states.
+ex:
+this.state={
+	name:"Global"
+}
+
+this.setState({name:"Niyaz Sir"})
+
+ex:1:
+-------
+Student.js
+----------
+import React, { Component } from 'react';
+class Student extends Component{
+
+    constructor(props)
+    {
+        super(props);
+
+        this.state={
+            name:"JOSE",
+            roll: this.props.roll
+        }
+    }
+    //arrow function
+    handleClick=()=>
+    {
+           this.setState({name:"Niyaz sir"});
+    }
+    render()
+    {
+        return  (<div>
+                     <h1>Name : {this.state.name}</h1>
+                     <h1>RollNo : {this.state.roll}</h1>
+            <button onClick={this.handleClick}>clickme</button>
+                </div>)
+    }
+}
+
+export default Student;
+
+
+index.js
+---------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student roll="101"/>,document.getElementById("root"));
+
+
+We can change more then one state at a time.
+
+ex:
+Student.js
+----------
+import React, { Component } from 'react';
+class Student extends Component{
+
+    constructor(props)
+    {
+        super(props);
+
+        this.state={
+            name:"JOSE",
+            roll: this.props.roll
+        }
+    }
+    //arrow function
+    handleClick=()=>
+    {
+           this.setState({name:"Niyaz sir",roll:"501"});
+    }
+    render()
+    {
+        return  (<div>
+                     <h1>Name : {this.state.name}</h1>
+                     <h1>RollNo : {this.state.roll}</h1>
+            <button onClick={this.handleClick}>clickme</button>
+                </div>)
+    }
+}
+
+export default Student;
+
+
+index.js
+---------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Student from "./Student";
+
+//render the component to index.html
+ReactDOM.render(<Student roll="101"/>,document.getElementById("root"));
+
+Note:
+-----
+All the above programs will set the state without refreshing whole web 
+page or other elements in a React.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

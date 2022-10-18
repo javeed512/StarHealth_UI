@@ -1,0 +1,351 @@
+How to setup ReactJs project using CDN links
+=============================================
+step1:
+--------
+If we want to develop React Component ,React Element,React Application
+ or React Project we required "React Package" and "React DOM package".
+
+ex:
+	https://reactjs.org/docs/cdn-links.html
+
+cdn links (manified/production links)
+---------------------------------------
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+
+step2:
+--------
+Some people uses Babel to develop ReactJs Application.
+
+Babel is a JavaScript compiler.
+
+Babel is a toolchain that is mainly used to convert Modern 
+Javascript code into backwards compatable version of Javascript
+in Current and older browsers or environments.	
+
+Note:
+-----
+we can develop React element, component and application without Babel
+but it is not recommanded to use.
+
+
+To add Babel in our project we need to use below url.
+
+url:
+---
+	http://babeljs.io/setup#installation
+
+ex:
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+ex:
+<!DOCTYPE html>
+<html>
+	<head>
+			<title>MyPage</title>
+			
+			<!-- Add React package and React DOM package -->
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+	
+			<!-- Add Babel -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+	</head>
+	<body>
+	
+	</body>
+	
+</html>
+
+step3:
+-------
+	create a React Component in <script> tag of <body> tag.
+
+ex:
+<body>
+			<!-- result here -->
+			<div id="root"></div>
+			
+		<script type="text/babel">
+			class App extends React.Component
+			{
+				render()
+				{
+				//returning JSX code
+					return (<div>
+							<h1>Hello React</h1>	
+							</div>						
+							);
+				}
+			}
+			ReactDOM.render(<App />,document.getElmentById("root"));
+		</script>
+	</body>
+	
+step4:
+------
+	Run index.html file in browser window to see output.
+
+index.html
+-----------
+<!DOCTYPE html>
+<html>
+	<head>
+			<title>MyPage</title>
+			
+			<!-- Add React package and React DOM package -->
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+	
+			<!-- Add Babel -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+	</head>
+	<body>
+			<!-- result here -->
+			<div id="root"></div>
+			
+		<script type="text/babel">
+			class App extends React.Component
+			{
+				render()
+				{
+				//returning JSX code
+					return (<div>
+							<h1>Hello React</h1>	
+							</div>						
+							);
+				}
+			}
+			ReactDOM.render(<App />,document.getElementById("root"));
+		</script>
+	</body>
+	
+</html>
+
+
+Creating React Component without babel and JSX
+================================================
+<!DOCTYPE html>
+<html>
+	<head>
+			<title>MyPage</title>
+			
+			<!-- Add React package and React DOM package -->
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+	</head>
+	<body>
+			<!-- result here -->
+			<div id="root"></div>
+			
+		<script>
+			class App extends React.Component
+			{
+				render()
+				{
+				 
+					return (
+					React.createElement("div",null,"Hello World")
+					);
+				}
+			}
+			ReactDOM.render(React.createElement(App,null),document.getElementById("root"));
+		</script>
+	</body>
+	
+</html>
+
+Note:
+-----
+To create an element we need to use 
+"React.createElement(tag_name,prop_name,child_element)".
+
+ex:
+<!DOCTYPE html>
+<html>
+	<head>
+			<title>MyPage</title>
+			
+			<!-- Add React package and React DOM package -->
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+	</head>
+	<body>
+			<!-- result here -->
+			<div id="root"></div>
+			
+		<script>
+			class App extends React.Component
+			{
+				render()
+				{
+				 
+					return (
+					React.createElement("div", null, 
+React.createElement("h1", null, "Global Edx"))
+					);
+				}
+			}
+			ReactDOM.render(React.createElement(App,null),document.getElementById("root"));
+		</script>
+	</body>
+	
+</html>
+
+
+Note:
+------
+In above example code of Element is increasing because we are 
+focusing in code structure instead of development.
+
+To overcome this we need to use Babel,NPM, Web pack.	
+
+
+Creating React Application using NPM command
+================================================
+npm stands for Node Packaging Manager.
+
+It is a intigrated tool of NodeJS.
+
+It is used to download React Modules.
+
+Softwares Required for ReactJS
+-----------------------------
+step1:
+------
+	Install NodeJS software.
+	ex:
+	http://nodejs.org/en/download/
+
+step2:
+----
+	add nodejs directory in Path environment variables.
+	ex:
+	user variables
+	--------------
+	Path
+	C:\Program Files\nodejs;
+
+step3:
+------
+	Install Visual studio Code (VSC) Editor.
+	ex:
+	http://code.visualstudio.com/download
+	
+	
+First Application development using ReactJS
+=============================================
+step1:
+-----
+	Make sure NodeJs software installed successfully.
+
+step2:
+------
+	Make sure Visual studio code or other Editors like 
+	Atom,sublime and etc are installed in our computer.
+
+step3:
+------
+	create a folder "FirstReact" in "D" drive.
+	
+step4:
+------
+	open a command prompt from that folder and type below command
+	to download all the modules of ReactJs.
+
+	D:/FirstReact> npm install -g create-react-app
+
+step5:
+-------
+	check the Reactjs version.
+	ex:
+	D:/FirstReact>create-react-app --version
+
+
+step6:
+-------
+	Develop React First Application.
+	ex:
+	D:/FirstReact> create-react-app  myapp
+
+
+step7:
+--------
+	Move to project.
+	ex:
+	D:/FirstReact> cd myapp
+
+step8:
+-----
+	Run the React Application
+	ex:
+	D/FirstReact/myapp>npm start
+
+step9:
+-----
+	To see the output we can type below request url.
+	ex:
+	http://localhost:3000
+
+Note:
+	Bydefault ReactJs application runs in light weight server
+	under the port number 3000.
+	
+step10:
+-------
+	Open a project in a visual studio code Editor.
+	ex:
+	File --> open folder--> select "myapp" folder.
+
+step11:
+-------
+	open "App.js" file from "myapp/src" folder.
+ex:
+App.js
+------
+-
+-
+-
+     Learn React from GlobalEdx
+-
+-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+

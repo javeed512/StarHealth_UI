@@ -1,0 +1,450 @@
+2)Class Component
+==================
+A class Component requires to extends from React Component.
+
+The class must implements a render() method function which returns A react
+Element to be render.Similar to return value of a functional 
+component.In a class based component props are accissible via this.props.
+
+syntax
+-------
+class Class_name extends Component
+{
+	render()
+	{
+		return element.
+	}
+}
+
+ex:
+----
+class App extends Component
+{
+	render()
+	{
+		return <h1>Hello GlobalEdx</h1>
+	}
+}
+
+Class component with props
+----------------------------
+class App extends Component
+{
+	render()
+	{
+		return <h1>Hello {this.props.name}</h1>
+	}
+}
+
+Project  structure
+--------------------
+myapp3
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html (3)
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js(2)
+	|------Student.js (1)
+|	|
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application.
+	ex:
+	D:/FirstReact>create-react-app  myapp3
+
+step2:
+------
+	Delete all the files from src folder.
+
+step3:
+------
+	create a "Student.js" file in "src " folder.
+	
+Student.js
+---------
+//import React from react module
+import React,{Component} from "react";
+
+
+class Student extends Component
+{
+	render()
+	{
+		return <h1>Hello GlobalEdx</h1>
+	}
+}
+
+//export the component
+export default Student;
+
+
+
+step4:
+-----
+	create "index.js" file to render the output to index.html file.
+
+index.js
+---------
+//import React from React module
+import React from "react";
+
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the Student component to index.html
+ReactDOM.render(<Student />,document.getElementById("root"));
+
+step5:
+-----
+	move to myapp3
+	ex:
+	D:/FirstReact> cd myapp3
+
+step6:
+-----
+	Run the application.
+	ex:
+	D:/FirstReact/myapp2>npm start
+
+step7:
+-------
+	Test the React Application.
+	ex:
+	http://localhost:3000
+
+
+props 
+=======
+Student.js
+------------
+//import React from react module
+import React,{Component} from "react";
+class Student extends Component
+{
+	render()
+	{
+	return <h1>Hello {this.props.name}</h1>
+	}
+}
+//export the component
+export default Student;
+
+index.js
+----------
+//import React from React module
+import React from "react";
+
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the Student component to index.html
+ReactDOM.render(<Student name="Niyaz Sir"/>,document.getElementById("root"));
+
+
+Composing Components
+=========================
+Components can refer to other components in their output.
+
+This lets us use some component abstraction for any level of detail.
+
+ex:
+function Student()
+{
+	return <h1>Hello GlobalEdx</h1>
+}
+
+or
+
+const Student=()=>
+		{
+		return <h1>Hello Global</h1>
+		}
+
+
+function App()
+{
+	return (
+			<div>
+				<Student />
+				<Student />
+				<Student />
+			</div>
+		)
+}
+
+ReactDOM.render(<App />,document.getElementById("root"));
+
+ex:
+Project  structure
+--------------------
+myapp4
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html 
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js
+	|------Student.js 
+|	|------App.js
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application.
+	ex:
+	D:/FirstReact>create-react-app  myapp4
+
+step2:
+------
+	Delete all the starting 6 files from src folder.
+
+step3:
+------
+	create a "Student.js" file in "src " folder.
+
+Student.js
+---------
+function Student()
+{
+    return <h1>Hello Brothers!</h1>
+}
+
+//export the component
+export default Student;
+
+
+step4:
+-----
+	Create "App.js" file for composing Student component.
+
+App.js
+------
+//import React from react module
+import React from "react";
+
+//import Student component
+import Student from "./Student";
+
+function App()
+{
+    return (<div>
+                <Student />
+                <Student />
+                <Student />
+            </div>
+           );
+}
+//export the App component
+export default App;
+
+step5:
+-----
+	create "index.js" file to render the output to index.html file.
+index.js
+--------
+//import React from react module
+import React from "react";
+
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import App component
+import App from "./App";
+
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+step6:
+-----
+	move to myapp4.
+	ex:
+	D:/FirstReact>cd myapp4
+
+step7:
+------
+	Run the Application
+	ex:
+	D:/FirstReact>npm start
+
+step8:
+-----
+	Test the application
+	ex:
+	http://localhost:3000
+
+Internal Excution of Above program
+--------------------------------------
+Student.js--->App.js--->index.js---->index.html--->Browser window.
+
+Composing component using props object
+----------------------------------------
+Student.js
+---------
+function Student(props)
+{
+return <h1>Hello {props.name}</h1>
+}
+
+//export the component
+export default Student;
+
+
+App.js
+-----
+//import React from react module
+import React from "react";
+
+//import Student component
+import Student from "./Student";
+
+function App()
+{
+    return (<div>
+                <Student name="Brothers!" />
+                <Student name="GlobalEdx"/>
+                <Student name="Niyaz sir"/>
+            </div>
+           );
+}
+//export the App component
+export default App;
+
+Note:
+-----
+	All the name attribute values goes to Student Component props object.
+
+Internal Execution of above program.
+---------------------------------------
+Student(Brothers!)
+		  --->
+Student(GlobalEdx)---> App.js  -----> index.js ---> index.html ---> browser 
+		  --->
+Student(Niyaz sir)
+
+
+JSX in ReactJS
+==================
+JSX stands for JAvaScript XML.It is a syntax extension to JavaScript.
+
+JSX is a preprocessor step that adds XML syntax to JavaScript.
+
+JSX produces React "elements".It is possible to create element without
+JSX but JSX makes React to lot more elegant.
+
+It is recommanded to use JSX with React to describe what the UI should
+be look JSX is easier to read and write .Babel transform these expressions
+into a actual javascript code.
+
+It also allows React to show more useful error and warning messages.
+
+ex:
+JSX
+---
+	const el=<h1>Hello GlobalEdx</h1>
+
+Babel's convert to
+--------------------
+React.createElement("h1",null,"Hello GlobalEdx");
+
+
+ex:2
+---
+JSX
+----
+const el=<h1 className="bg">Hello GlobalEdx</h1>
+
+Babel's convert to
+-----------------------
+React.createElement("h1",{className:"bg"},"Hello GlobalEdx");
+
+ex:3
+----
+JSX
+----
+const el=<h1>Hello {name}</>
+
+Babels' convert to
+-------------------
+React.createElement("h1",null,"Hello",name);
+
+ex:4
+---
+JSX
+----
+const el=<Student />
+
+Babel's convert to
+--------------------
+React.createElement("Student",null);
+
+ex:5
+----
+JSX
+---
+const el=<Student name="Alan"/>
+
+Babel's convert to
+--------------------
+React.createElement("Student",{name:"Alan"});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

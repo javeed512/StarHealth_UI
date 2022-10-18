@@ -1,0 +1,69 @@
+What is ReactJS
+==================
+ReactJs is a declarative , efficient and flexible JavaScript library
+for building Front End applications or User Interface(UI).
+
+It is an open source,component based front end library responsible
+only for view layer of the application(UI).
+
+It was created by Jordan Walke,who was a software engineer at Facebook.
+
+It was intially developed and maintained by Facebook and was later used
+in its products like watsapp & Instagram.
+
+ReactJS was released to the public in the month of May 2013.Current
+version of ReactJs is V16.8.6(March 2019).
+
+ReactJS allows us to create reusable UI Components.This make ReactJs better.
+
+Component is a building block of any ReactJs application.
+ex:
+	http://reactjs.org	
+
+Let see various components used in our previous project.
+
+Advantages of ReactJS
+=======================
+1)One Way Data Binding
+
+2)Virtual DOM 	
+
+3)We can create reusable components.
+
+4)Fast and Efficient
+
+5)It works in All Browsers
+
+6)Large community
+
+Prerequisite to Learn ReactJS
+=================================
+HTML
+CSS
+JavaScript
+JSX(Java Script Xtension/XML)
+Bootstrap/Bulma (optional)
+
+
+How ReactJS works
+====================
+diagram: react1.1
+
+If we change the content from "GlobalEdx" to "Globaledx Institution" 
+then ReactJS will create a new Virtual DOM and it compares with
+old Virtual DOM .
+
+If new Virtual DOM having some modifications then new output
+will be displayed in that component only.
+
+
+
+ReactJs applications can be developed by using 
+
+1)CDN links  (not recommanded)
+
+2)npm command (Recommanded)
+
+
+
+

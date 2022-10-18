@@ -1,0 +1,473 @@
+JavaScript Expressions in JSX
+================================
+we can put any JAvaScript expression inside the curely braces in JSX.We 
+can pass any JAvascript expression as a children by enclosing it with '{}'.
+
+ex:
+const el=<h1>{10+20}</h1>
+const el=<h1>Value : {20-10}</h1>
+
+We cam call any Javascript function in JSX.
+ex:
+const el=<h1>{f1()}</h1>
+const el=<h1>Hello :{f1()}</h1>	
+
+In JSX,we can use any property of an object.
+ex:
+const el=<h1>Hello {user.firstname}</h1>
+
+Project  structure
+--------------------
+myapp5
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html 
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js
+	|------App.js
+|	|
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application.
+	ex:
+	D:/FirstReact>create-react-app  myapp5
+
+step2:
+------
+	Delete all the files from src folder.
+
+step3:
+------
+	create a "App.js" file in "src " folder.
+	
+App.js
+---------
+//import React from react module
+import React from "react";
+
+const el=<h1>Hello World</h1>
+
+export default el;
+
+
+
+
+step4:
+-----
+	create "index.js" file to render the output to index.html file.
+
+index.js
+---------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import element from App component
+import el from "./App";
+
+ReactDOM.render(el,document.getElementById("root"));
+
+
+
+step5:
+-----
+	move to myapp5
+	ex:
+	D:/FirstReact> cd myapp5
+
+step6:
+-----
+	Run the application.
+	ex:
+	D:/FirstReact/myapp5>npm start
+
+step7:
+-------
+	Test the React Application.
+	ex:
+	http://localhost:3000
+
+ex:2
+------
+App.js
+------
+//import React from react module
+import React from "react";
+
+const el=<h1>Hello :{10+20}</h1>
+
+export default el;
+
+ex:3
+--------
+App.js
+------
+//import React from react module
+import React from "react";
+
+//variable
+const name="GlobalEdx";
+const el=<h1>Hello {name}</h1>
+
+export default el;
+
+ex:4
+-----
+App.js
+-------
+//import React from react module
+import React from "react";
+
+//function
+function f1(name)
+{
+  return name;
+}
+const el=<h1>Hello {f1("Global")}</h1>
+
+export default el;
+
+ex:5
+----
+App.js
+---------
+//import React from react module
+import React from "react";
+
+//function
+function f1()
+{
+  return "Edx";
+}
+const el=<h1>Hello {f1()}</h1>
+
+export default el;
+
+ex:6
+-----
+App.js
+--------
+//import React from react module
+import React from "react";
+
+let user={
+    firstname:"global",
+    lastname : "edx"
+}
+const el=<h1>Hello {user.firstname}</h1>
+
+export default el;
+
+Specifying Attributes with JSX
+================================
+We can use quotes to specify String literals as attributes.
+
+syntax
+------
+	const el=<h1 attribute="value">content</h1>
+
+ex:
+	const el=<h1 className="bg">Hello</h1>
+	const el=<label htmlFor="name">Name:</label>
+
+We can also use curely braces to embed a Javascript Expression in 
+an attribute.
+
+const el=<h1 className={ac.tab}>Hello</h1>
+
+Note:
+-----
+Since JSX  is a closer to Javascript than to HTML,React DOM uses
+camelcases property naming convention instead of html attributes names.
+
+
+Don't put quotes around curely braces when embedding a Javascript expression
+in an attribute.We should either use quotes or curely braces.
+
+Project  structure
+--------------------
+myapp6
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html 
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js
+	|------App.js
+|	|------App.css
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application.
+	ex:
+	D:/FirstReact>create-react-app  myapp6
+
+step2:
+------
+	Delete all the files from src folder.
+
+step3:
+------
+	create a "App.js" file in "src " folder.
+	
+App.js
+---------
+//import React from react module
+import React from "react";
+
+//import css file
+import "./App.css";
+
+const el=<h1 className="bg">Hello</h1>
+
+export default el;
+
+
+step4:
+------
+	create "App.css" file to create styles for "className" attribute.
+App.css
+---------
+.bg
+{
+    background-color: brown;
+}
+
+
+
+step5:
+-----
+	create "index.js" file to render the output to index.html file.
+
+index.js
+---------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import element from App component
+import el from "./App";
+
+ReactDOM.render(el,document.getElementById("root"));
+
+
+
+step6:
+-----
+	move to myapp6
+	ex:
+	D:/FirstReact> cd myapp6
+
+step7:
+-----
+	Run the application.
+	ex:
+	D:/FirstReact/myapp6>npm start
+
+step8:
+-------
+	Test the React Application.
+	ex:
+	http://localhost:3000
+
+Props
+=======
+When React sees an Element representing a userdefined component,It passes
+JSX attributes to this component as a single object.We call this object
+as "props".
+ex:
+function Student(props)
+{
+	return(
+		<div>
+			<h1>Hello {props.name}</h1>
+			<h1>RollNo {props.roll}</h1>
+		</div>
+	     );
+}
+ReactDOM.render(<Student name="Alan" roll="111"/>,document.getElementById("root"));
+
+
+ReactDOM.render(<Student name={"Alan"} roll="111"/>,document.getElementById("root"));
+
+
+ReactDOM.render(<Student name="Alan" roll={110+1}/>,document.getElementById("root"));
+
+
+Note:
+----
+All the attributs goes to props as a single object.
+
+
+internal representation
+------------------
+props ={
+	name: "Alan",
+	roll:  111
+}
+
+example
+---------
+
+Project  structure
+--------------------
+myapp7
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html 
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js
+	|------Student.js
+|	
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application.
+	ex:
+	D:/FirstReact>create-react-app  myapp7
+
+step2:
+------
+	Delete all the files from src folder.
+
+step3:
+------
+	create a "Student.js" file in "src " folder.
+	
+Student.js
+---------
+import React from "react";
+
+const Student= props=>{
+    return (
+            <div>
+                <h1>Name : {props.name}</h1>
+                <h2>RollNo : {props.roll}</h2>
+            </div>
+    );
+}
+export default Student;
+
+or
+
+import React ,{Component }from "react";
+
+class Student extends Component{
+    render()
+    {
+        return (
+            <div>
+                <h1>Name :{this.props.name}</h1>
+        <h1>RollNo : {this.props.roll}</h1>
+            </div>
+        );
+    }
+}
+
+export default Student;
+
+
+
+step4:
+------
+
+	create "index.js" file to render the output to index.html file.
+
+index.js
+---------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+ReactDOM.render(<Student name="Alan" roll="111"/>,document.getElementById("root"));
+
+
+
+step5:
+-----
+	move to myapp7
+	ex:
+	D:/FirstReact> cd myapp7
+
+step6:
+-----
+	Run the application.
+	ex:
+	D:/FirstReact/myapp7>npm start
+
+step7:
+-------
+	Test the React Application.
+	ex:
+	http://localhost:3000
+
+ex:2
+-----
+index.js
+-------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+ReactDOM.render(<Student name={"Jose"} roll={100+11}/>,document.getElementById("root"));
+
+ex:3
+-----
+index.js
+---------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+ReactDOM.render(<Student name="{Jose}" roll="{100+11}"/>,document.getElementById("root"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

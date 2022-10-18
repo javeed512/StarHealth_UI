@@ -1,0 +1,440 @@
+React Fragment
+=================
+Fragment is used to group of list of childrens without adding 
+extra nodes of the DOM.
+
+In general, render() method can return method can return 
+only one element we can't return more then one element directly.
+
+To return more then one element we need to use React Fragment.
+
+syntax
+---------
+<React.Fragment>
+	-
+	-
+</React.Fragment
+
+or
+
+<>
+	-
+	-
+</>
+
+
+Examples
+----------
+App.js
+-----
+//import React and Component class
+import React,{Component} from "react";
+
+//create a class by extending Component
+class App extends Component
+{
+    render()
+    {
+        //return react element
+        return  <h1>Hello World</h1>
+                <h2>Hello GlobalEdx</h2>
+    }
+}
+
+//export React component
+export default App
+
+o/p: Filed to compile
+
+To overcome above problem we can use <div> tag and inside that
+<div> tag we can declare any child tags.
+ex:
+App.js
+-----
+//import React and Component class
+import React,{Component} from "react";
+
+//create a class by extending Component
+class App extends Component
+{
+    render()
+    {
+        //return react element
+        return  <div>
+                <h1>Hello World</h1>
+                <h2>Hello GlobalEdx</h2>
+                </div>
+    }
+}
+
+//export React component
+export default App
+
+Note:
+----
+	In above program "<div>" tag is a unused tag.
+	To remove unused/unnecessary tags we can use React Fragment.
+
+
+approach1
+------------
+App.js
+-------
+//import React and Component class from react module
+import React,{Component} from "react";
+
+//create a class by extending Component
+class App extends Component
+{
+    render()
+    {
+        //return react element
+        return  <React.Fragment>
+                <h1>Hello World</h1>
+                <h2>Hello GlobalEdx</h2>
+                </React.Fragment>
+    }
+}
+
+//export React component
+export default App
+
+
+approach2
+----------
+
+App.js
+--------
+//import React and Component class from react module
+import React,{Component} from "react";
+
+//create a class by extending Component
+class App extends Component
+{
+    render()
+    {
+        //return react element
+        return  <>
+                <h1>Hello World</h1>
+                <h2>Hello GlobalEdx</h2>
+                </>
+    }
+}
+
+//export React component
+export default App
+
+
+approach3
+----------
+
+App.js
+-----
+//import React and Component class from react module
+import React,{Component, Fragment} from "react";
+
+//create a class by extending Component
+class App extends Component
+{
+    render()
+    {
+        //return react element
+        return  <Fragment>
+                <h1>Hello World</h1>
+                <h2>Hello Global</h2>
+                </Fragment>
+    }
+}
+
+//export React component
+export default App
+
+
+
+
+Components
+===========
+Components are building blocks of any React app.
+
+Component let you split the UI into independent reusable pieces.
+ex:
+ nav bar, header, footer and etc.
+
+Components are like Javascript functions.The accept arbitrary
+inputs called "props" and return React Elements describing what 
+should appear on the screen. 
+
+Always start Component names with a Capital letter.
+
+React treates components starting with lowercase letters as DOM tags.
+for example <div/> represent as HTML div tag but <App/>represent a
+component requires App to be in scope.
+
+We can create a Component in two ways.
+
+1)Function components/Funtional Components
+
+2)Class Component
+
+
+1)Function components/Funtional Components
+------------------------------------------
+It is a JavaScript function which accepts a single "props" object
+argument with data and returns a React Element.
+
+syntax
+-------
+function fun_name()
+{
+	return React Element;
+}
+ex:
+function Student()
+{
+	return <h1>Hello World</h1>
+}
+
+Above code is applicable for old versions and for latest versions
+like 6 ,we can use below code.
+
+ex:
+
+const Student=()=>
+		{
+		return <h1>Hello World</h1>
+		}
+
+function components with props
+-----------------------------
+syntax
+------
+function fun_name(props)
+{
+	return React Element;
+}
+ex:
+function Student(props)
+{
+	return <h1>Hello {props.name}</h1>
+}
+
+or
+const Student=(props)=>
+		{
+		return <h1>Hello {props.name}</h1>
+		}
+
+
+Rendering the Component
+-------------------------
+We can render the component as given below.
+
+ReactDOM.render(<Student/>,document.getElementById("root"));
+
+If we want to pass any attributes then we can write below code.
+
+ReactDOM.render(<Student name="Niyaz Sir"/>,document.getElementById("root"));
+
+Here "name" attribute goes to "props" as an object.
+
+
+Project  structure
+--------------------
+myapp2
+|
+|------node-modules
+|
+|------public
+|	|
+|	|------favicon.ico
+|	|------index.html (3)
+|	|------manifest.json
+|
+|------src
+	|
+	|------index.js(2)
+	|------Student.js (1)
+|	|
+|
+|------package.json
+|------README.md
+
+step1:
+------
+	Develop React Application.
+	ex:
+	D:/FirstReact>create-react-app  myapp2
+
+step2:
+------
+	Delete all the files from src folder.
+
+step3:
+------
+	create a "Student.js" file in "src " folder.
+	
+Student.js
+----------
+//import React from react module
+import React from "react";
+
+function Student(){
+	return <h1>Hello World</h1>
+}
+
+//export the component
+export default Student;
+
+or
+
+Student.js
+---------
+//import React from react module
+import React from "react";
+
+const Student=()=>
+			{
+				return <h1>Hello World Global</h1>
+			}
+
+//export the component
+export default Student;
+
+
+
+
+
+step4:
+-----
+	create "index.js" file to render the output to index.html file.
+
+index.js
+---------
+//import React from React module
+import React from "react";
+
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the Student component to index.html
+ReactDOM.render(<Student/>,document.getElementById("root"));
+
+step5:
+-----
+	move to myapp2
+	ex:
+	D:/FirstReact> cd myapp2
+
+step6:
+-----
+	Run the application.
+	ex:
+	D:/FirstReact/myapp2>npm start
+
+step7:
+-------
+	Test the React Application.
+	ex:
+	http://localhost:3000
+
+
+Function component using props
+-----------------------------
+Student.js
+-----------
+//import React from react module
+import React from "react";
+
+const Student=(props)=>
+			{
+			return <h1>Hello {props.name}</h1>
+			}
+
+//export the component
+export default Student;
+
+or
+
+Student.js
+----------
+//import React from react module
+import React from "react";
+
+function Student(props)
+			{
+			return <h1>Hello {props.name}</h1>
+			}
+
+//export the component
+export default Student;
+
+
+
+index.js
+-------
+//import React from React module
+import React from "react";
+
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the Student component to index.html
+ReactDOM.render(<Student name="Alan"/>,document.getElementById("root"));
+
+
+Ruturning more then one element using React Fragment.
+
+Student.js
+----------
+//import React from react module
+import React from "react";
+
+function Student(props)
+			{
+			return  <>
+					<h1>Hello</h1>
+					<h2>GlobalEdx</h2>
+					</>
+			}
+
+//export the component
+export default Student;
+
+index.js
+---------
+//import React from React module
+import React from "react";
+
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+//render the Student component to index.html
+ReactDOM.render(<Student/>,document.getElementById("root"));
+
+
+
+
+2)class component
+===================
+ 
+
+
+
+
+
+
+
+
+
+
+
+

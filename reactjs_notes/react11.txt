@@ -1,0 +1,485 @@
+Lists in ReactJs
+=================
+
+Lists are used to display data in an ordered format and mainly used to 
+display menus on websites. In React, Lists can be created in a similar 
+way as we create lists in JavaScript. Let us see how we transform Lists
+ in regular JavaScript.
+
+The map() function is used for traversing the lists. 
+
+In the below example, the map() function takes an array of numbers 
+and multiply their values with 2.
+
+ We assign the new array returned by map() to the variable
+ multiplyNums and log it.
+
+ex:1
+----
+App.js
+-------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+    render() {
+            const arr=[10,20,30,40];
+        return (
+            <ul>
+                <li>{arr[0] * 2}</li>
+                <li>{arr[1] * 2}</li>
+                <li>{arr[2] * 2}</li>
+                <li>{arr[3] * 2}</li>
+            </ul>
+         
+        )
+    }
+}
+
+index.js
+--------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+
+Above approach is not recommanded to use because it increase length
+of our code for each index of an array.
+
+ex:
+App.js
+-------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+    render() {
+            const arr=[10,20,30,40];
+            const newArr = arr.map( (num)=>
+            {
+            return <li>{num*2}</li>
+            }) ;
+            
+        return <ul>{newArr}</ul>
+            }
+}
+
+index.js
+---------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+ex:3
+---------
+App.js
+--------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+  state={
+    users:[
+      {id:101,name:"raja",password:"rani"},
+      {id:102,name:"king",password:"kingdom"},
+      {id:103,name:"raj",password:"simran"}
+
+    ]
+  }
+  render() {
+    return (
+     <div>
+       <h1>Id:{this.state.users[0].id} Name:{this.state.users[0].name} Password:{this.state.users[0].password}</h1>
+
+       <h1>Id:{this.state.users[1].id} Name:{this.state.users[1].name} Password:{this.state.users[1].password}</h1>
+
+       <h1>Id:{this.state.users[2].id} Name:{this.state.users[2].name} Password:{this.state.users[2].password}</h1>
+     </div>
+    )
+  }
+}
+
+index.js
+--------------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+
+
+Note:
+--------
+In above program our code is getting duplicated and it increase length
+of our code.
+
+To overcome this limitation we can use map() method.
+
+ex:
+App.js
+---------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+  state={
+    users:[
+      {id:101,name:"raja",password:"rani"},
+      {id:102,name:"king",password:"kingdom"},
+      {id:103,name:"raj",password:"simran"}
+
+    ]
+  }
+  render() {
+    const newUsers=this.state.users.map(user=>
+      {
+        console.log(user);
+      return <h1>Id:{user.id} Name:{user.name} Password: {user.password}</h1>
+      })
+    return <div>{newUsers}</div>
+  }
+}
+
+index.js
+-----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+
+Key in ReactJS
+==================
+A key is a special string attribute you need to include when creating
+lists of elements.
+
+Keys help react identify which items have changed are added or are removed.
+
+Keys should be given to the elements inside the array to given the 
+elements a stable identity.
+
+The best way to pick a key is to use a string that uniquely identifies 
+a list item among its siblings.
+
+Most often you would use ID's from your data as keys.
+
+Keys used within arrays should be unique among their siblings .However
+they don't need to be globally unique.We can use the same keys when we 
+produce two different arrays.
+
+Keys serve as a hindt to react but they don't get passed to your components.
+
+ex:
+---
+const arr=[10,20,30];
+
+//using array map method
+const newArr=arr.map(num=>{
+	return <li key={num}>{num*2}</li>;
+});
+ex:
+
+App.js
+---------
+import React, { Component } from 'react'
+
+export default class App extends Component {
+  state={
+    users:[
+      {id:101,name:"raja",password:"rani"},
+      {id:102,name:"king",password:"kingdom"},
+      {id:103,name:"raj",password:"simran"}
+
+    ]
+  }
+  render() {
+    const newUsers=this.state.users.map(user=>
+      {
+        console.log(user);
+      return <h1 key={user.id}>Id:{user.id} Name:{user.name} Password: {user.password}</h1>
+      })
+    return <div>{newUsers}</div>
+  }
+}
+
+index.js
+---------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+
+Styling Component/React with CSS
+==================================
+CSS in React is used to style the React App or Component. 
+
+The style attribute is the most used attribute for styling in React 
+applications, which adds dynamically-computed styles at render time.
+
+ It accepts a JavaScript object in camelCased properties rather than a
+ CSS string. 
+
+There are many ways available to add styling to your React App or
+ Component with CSS. 
+
+we are going to discuss mainly 3 ways to style React Components.They are
+
+1)Inline Styling
+2)External Styling/CSS Stylesheet
+3)CSS Module
+
+
+1. Inline Styling
+----------------
+The inline styles are specified with a JavaScript object in camelCase
+ version of the style name. 
+
+Its value is the style?s value, which we usually take in a string.
+
+ex:1
+-----
+App.js
+---------
+import React from 'react'
+
+class App extends React.Component {  
+  render() {  
+
+const mycolor = "red";
+    return (  
+      <div>  
+      <h1 style={{color:mycolor}}>Hello GlobalEdx</h1>  <h1 style="color:green">
+      <p>I am a GlobalEdx Student</p>  
+      </div>  
+    );  
+  }  
+}  
+export default App;  
+
+index.js
+-----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+ex:2
+------
+App.js
+---------
+import React from 'react'
+
+class App extends React.Component {  
+  render() {  
+    return (  
+      <div>  
+      <h1 style={{color: "Green"}}>Hello GlobalEdx</h1>  
+      <p style={{backgroundColor: "lightgreen"}}>I am a GlobalEdx Student</p>  
+      </div>  
+    );  
+  }  
+}  
+export default App;  
+
+index.js
+----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+
+
+Using JavaScript Object
+-------------------------
+The inline styling also allows us to create an object with styling 
+information and refer it in the style attribute.
+
+ex:
+App.js
+--------
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+  
+class App extends React.Component {  
+  render() {  
+    const mystyle = {  
+      color: "green",  
+      backgroundColor: "lightBlue",  
+      padding: "10px",  
+      fontFamily: "Arial"  
+    };  
+    return (  
+      <div>  
+      <h1 style={mystyle}>Hello GlobalEdx</h1>  
+      <p>I am a GlobalEdx student.</p>  
+      </div>  
+    );  
+  }  
+}  
+export default App;  
+
+index.js
+---------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+
+2. CSS Stylesheet
+------------------
+You can write styling in a separate file for your React application,
+ and save the file with a .css extension.
+
+ Now, you can import this file in your application.
+
+ex:
+App.js
+---------
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+import './App.css';  
+  
+class App extends React.Component {  
+  render() {  
+    return (  
+      <div>  
+      <h1>Hello GlobalEdx</h1>  
+      <p>I am a GlobalEdx student.</p>  
+      </div>  
+    );  
+  }  
+}  
+export default App;  
+
+
+App.css
+--------
+body {  
+    background-color: #008080;  
+    color: yellow;  
+    padding: 40px;  
+    font-family: Arial;  
+    text-align: center;  
+  }  
+
+index.js
+----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+3. CSS Module
+-------------
+CSS Module is another way of adding styles to your application.
+
+ It is a CSS file where all class names and animation names are scoped locally by default. It is available only for the component which imports it, means any styling you add can never be applied to other components without your permission, and you never need to worry about name conflicts. You can create 
+CSS Module with the .module.css extension like a myStyles.module.css name.
+
+
+ex:
+App.js
+--------
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+import styles from './myStyles.module.css';   
+  
+class App extends React.Component {  
+  render() {  
+    return (  
+      <div>  
+      <h1 className={styles.mystyle}>Hello GlobalEdx</h1>  
+      <p className={styles.parastyle}>I am GlobalEdx Student</p>  
+      </div>  
+    );  
+  }  
+}  
+export default App;  
+
+
+mystyles.module.css
+---------------------
+.mystyle {  
+    background-color: #cdc0b0;  
+    color: Red;  
+    padding: 10px;  
+    font-family: Arial;  
+    text-align: center;  
+  }  
+    
+  .parastyle{  
+    color: Green;  
+    font-family: Arial;  
+    font-size: 35px;  
+    text-align: center;  
+  }  
+
+index.js
+----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from "./App";
+
+//render the component to index.html
+ReactDOM.render(<App />,document.getElementById("root"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

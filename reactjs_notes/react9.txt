@@ -1,0 +1,512 @@
+update state
+================
+this.setState(function(state,props)
+{
+	return {}
+}
+);
+
+It accepts a function rather then an object.
+
+It receives the previous state as the first argument.
+
+The props at the time update is applied as the second argument.
+
+ex:1
+-----
+Student.js
+-----------
+//rcc 
+import React, { Component } from 'react'
+
+export default class Student extends Component {
+    //constructor
+    constructor(props)
+    {
+        super(props);
+        //state
+        this.state={
+            name:"Jose",
+            roll:this.props.roll
+        }
+        this.handleClick=this.handleClick.bind(this);
+    }
+
+    //regular function
+    handleClick(){
+        this.setState(function(state,props){
+            console.log(state.name);
+            console.log(state.roll);
+        });
+    }
+    render() {
+        return (
+            <div>
+                <h1>Name:{this.state.name}</h1>
+                <h1>RollNo:{this.state.roll}</h1>
+            <button onClick={this.handleClick}>clickme</button>
+            </div>
+        )
+    }
+}
+
+index.js
+---------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+ReactDOM.render(<Student  roll="101"/>,document.getElementById("root"));
+
+
+update state using Arrow function
+----------------------------------
+Student.js
+----------
+//rcc 
+import React, { Component } from 'react'
+
+export default class Student extends Component {
+    //constructor
+    constructor(props)
+    {
+        super(props);
+        //state
+        this.state={
+            name:"Jose",
+            roll:this.props.roll
+        }
+        this.handleClick=this.handleClick.bind(this);
+    }
+
+    //regular function
+    handleClick(){
+        this.setState((state,props)=>{
+            console.log(state.name);
+            console.log(state.roll);
+        });
+    }
+    render() {
+        return (
+            <div>
+                <h1>Name:{this.state.name}</h1>
+                <h1>RollNo:{this.state.roll}</h1>
+            <button onClick={this.handleClick}>clickme</button>
+            </div>
+        )
+    }
+}
+
+
+index.js
+--------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+ReactDOM.render(<Student  roll="101"/>,document.getElementById("root"));
+
+
+passing arguments to event handlers
+==================================
+Arrow function
+-------------
+<button onClick={(e)=>this.handleClick(id,e)}>Delete</button>
+
+bind method
+------------
+<button onClick={this.handleClick.bind(this,id)}>Delete</button>
+
+
+Note:
+------
+	In both cases the 'e' argument represent the react event wil be 
+passed as a second argument after the Id.
+
+With an arrow function,we have to pass it explicitly but with bind 
+any furthur arguments are automatically forwarded.
+
+
+ex:1
+----
+Student.js
+------------
+//rcc 
+import React, { Component } from 'react'
+
+export default class Student extends Component {
+    
+    //state without constructor
+    state={
+        name:"GlobalEdx"
+    }
+
+   //arrow function
+   handleClick=()=>
+   {
+       console.log("button clicked")
+   }
+    render() {
+        return (
+            <div>
+                <h1>Name:{this.state.name}</h1>
+            <button onClick={this.handleClick}>clickme</button>
+            </div>
+        )
+    }
+}
+
+index.js
+---------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+ReactDOM.render(<Student/>,document.getElementById("root"));
+
+
+To pass the arguments in event handler we can use below code.
+ex:
+Student.js
+-----------
+//rcc 
+import React, { Component } from 'react'
+
+export default class Student extends Component {
+    
+    //state without constructor
+    state={
+        id:"1",
+        name:"GlobalEdx"
+    }
+
+   //arrow function
+   handleClick=(id)=>
+   {
+       console.log(id)
+   }
+   //create another arrow function for parameter
+   handleClickArg=()=>
+   {
+       this.handleClick(this.state.id);
+       //or
+       //return this.handleClick(this.state.id);
+       
+   }
+    render() {
+        return (
+            <div>
+                <h1>Name:{this.state.name}</h1>
+            <button onClick={this.handleClickArg}>clickme</button>
+            </div>
+        )
+    }
+}
+
+index.js
+---------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import Student from "./Student";
+
+ReactDOM.render(<Student/>,document.getElementById("root"));
+
+Phases of components in ReactJS
+================================
+There are four Phases of components in ReactJS.
+1)Mounting
+2)Updating
+3)Error Handling
+4)Unmounting
+
+1)Mounting
+-----------
+Mounting is the process of creating an element and inserting it in a 
+DOM tree.
+
+
+
+2)Updating
+-------------
+Updating is the process of changing state or props of component and 
+update changes to nodes already in the DOM.
+
+Diagram : rjs9.2
+
+3)Error Handling
+----------------
+These are used when there is a error during rendering ,in lifecycle
+method or in the constructor of any child component.
+
+Diagram: rjs9.3
+
+4)Unmounting 
+---------------
+Unmounting is the process of removing components from the DOM.
+In general it will clear the reserved memory.
+
+Diagram: rjs9.4
+
+
+Life cycle methods 
+==================
+Each component has several lifecycle methods that can override to run
+code at perticular time in the process.
+
+Mounting
+Updating
+Error Handling
+Unmounting
+
+Diagram: rjs9.5
+
+
+Mounting
+==========
+Mounting is the process of creating an element and inserting it in a DOM
+tree.
+
+Following method are called in the following order when an instance of 
+a component is being created and inserted into the DOM.
+
+i)constructor()
+
+ii)static getDerivedStateFromProps()
+
+iii)render()
+
+iv)componentDidMount()
+
+
+i)constructor()
+------------------
+The constructor for a React component is caleld before it is mounted.
+
+When implementing the constructor for a React.Component sub class, we 
+should call super(props) before any other state.Otherwise this.props will
+be undefined in the constructor , which can lead to bugs.
+
+React constructors are only used for two purposes.
+
+1)Initializing local state by assigning an object to this.state.
+ex:
+	this.State = {name:"GlobalEdx"}
+
+2)Binding  event handler methods to an instance.
+	ex:
+	this.handleClick= this.handleClick.bind(this);
+
+ex:
+constructor(props)
+{
+	super(props);
+	this.state={
+		name: "GlobalEdx",
+		roll: this.props.roll
+	}
+	this.handleClick= this.handleClick.bind(this);
+
+ii)static getDerivedStateFromProps()
+-----------------------------------
+A getDerivedStateFromProps is invoked right before calling the render 
+method , both on initial mount and on subseequent updates.
+
+It should returns an object to update the state or null to update nothing.
+
+This method exists for rare use cases where the state depends on changes 
+in props over time.
+
+This method does not have access to the component instance.
+
+syntax
+-------
+static getDerivedStateFromProps(props,state){}
+
+iii)render()
+=============
+This method is defined in each and every component. 
+It is responsible for returning a single root HTML node element. 
+If you don't want to render anything, you can return a null or false value.
+
+iv)componentDidMount()
+-------------------------
+This is invoked immediately after a component gets rendered and placed on the DOM.
+Now, we can do any DOM querying operations.
+
+This method is executed once in a life cycle of a component.
+
+syntax
+-------
+componentDidMount()
+{
+}
+
+
+
+
+example
+--------
+App.js
+-------
+import React, { Component } from 'react'
+import Student from "./Student";
+export default class App extends Component {
+    //constructor
+    constructor()
+    {
+        super();
+
+        console.log("App - constructor called");
+        //for removing warning message 
+        this.state={
+            
+        }
+    }
+    static getDerivedStateFromProps(props,state) 
+    {
+        console.log("App - get Derived State From props ");
+        //removing warning message
+        return null;
+    }   
+    componentDidMount()
+    {
+        console.log("App - component Did Mount");
+    }
+    render() {
+        console.log("App- rendered")
+        return <h1>Hello World</h1>
+    }
+
+}
+
+index.js
+----------
+//import ReactDOM from react-dom module
+import ReactDOM from "react-dom";
+
+//import Student component
+import App from "./App";
+
+ReactDOM.render(<App/>,document.getElementById("root"));
+
+
+
+
+Updating 
+===========
+Updating is the process of changing state or props of component and update
+changes to nodes already in the DOM.
+
+An update can be caused by the changes to props or state.These methods are called
+in the following order when a component is being re-rendered.
+
+i)static getDerivedStateFromProps()
+
+ii)shouldComponentUpdate()
+
+iii)render()
+
+iv)getSnapshortBeforeUpdate()
+
+componentDidUpdate()
+
+
+i)static getDerivedStateFromProps()
+---------------------------------------
+A getDerivedStateFromProps is invoked right before calling the render method,both
+on the initial mount and on subsequent updates.
+
+It should return an object to update the state or null to update nothing.
+
+This method exists for rare use cases where the state depends on changes in props
+over the time.
+
+This method does not have access to the component istance.As it static method 
+so this is not available inside this method.
+
+syntax
+------
+static getDerivedStateFromProps(props,state)
+{
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
